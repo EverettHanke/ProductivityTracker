@@ -40,3 +40,40 @@
 .read-the-docs {
   color: #888;
 }
+
+.App {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.task-form {
+  margin-bottom: 2rem;
+}
+
+.task-form input {
+  display: block;
+  margin: 0.5rem 0;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.task-form button {
+  margin: 0.5rem 0;
+  padding: 0.5rem 1rem;
+}
+
+.task-list .task {
+  border: 1px solid #ccc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.task-list .task ul li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.task-list .task ul li span {
+  flex-grow: 1;
+}
