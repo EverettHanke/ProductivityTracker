@@ -46,5 +46,3 @@ ProductivityTracker is built using the following technologies:
 
 ### Storage
 - **localStorage**: Used for persisting tasks locally in the browser.
-
-
