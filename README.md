@@ -15,18 +15,27 @@ ProductivityTracker is a task-tracking application built with **React**, **TypeS
 1. Clone the repository:
    ```bash
    git clone https://github.com/your-username/ProductivityTracker.git
-   cd ProductivityTracker/productivity-app
+   cd productivity-app
    npm install
+   ```
+2. Run a local version
+   ```bash
+   cd productivity-app
    npm run dev
+   ```
+3. How to Build the app
+   ```bash
+   cd productivity-app
    npm run build
+   ```
 
-   ## Tech Stack
+## Tech Stack
 
 ProductivityTracker is built using the following technologies:
 
 ### Frontend
-- **React**: A JavaScript library for building user interfaces.
-- **TypeScript**: A strongly typed programming language that builds on JavaScript, providing better tooling and type safety.
+- **React**: Used for building the user interface.
+- **TypeScript**: Provides type safety and better tooling.
 - **CSS**: For styling the application.
 
 ### Backend
