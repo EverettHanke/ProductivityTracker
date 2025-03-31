@@ -12,7 +12,7 @@ const Task = ({ task, taskIndex, toggleBulletPointCompletion, deleteTask }: Task
 
   //Generate Task Bullet Points
   const generateBulletPoints = () => {
-    return task.bulletPoints.map((point, index) => (
+    return task.bulletPoints.filter((point) => point.text.trim() !== '').map((point, index) => (
       <li key = {index}>
         <input type = "checkbox" checked = {point.completed} onChange = {() => toggleBulletPointCompletion(taskIndex, index)} />
         <span style = {{ textDecoration: point.completed ? 'line-through' : 'none' }}>{point.text}</span>
@@ -22,7 +22,7 @@ const Task = ({ task, taskIndex, toggleBulletPointCompletion, deleteTask }: Task
 
   // Render Bullet Points
   const renderLinks = () => {
-    return task.links.map((link, i) => (
+    return task.links.filter((link) => link.trim() !== '').map((link, i) => (
       <li key={i}>
         <a href={link} target="_blank" rel="noopener noreferrer">
           {link}
@@ -36,7 +36,7 @@ const Task = ({ task, taskIndex, toggleBulletPointCompletion, deleteTask }: Task
     <div className="task">
       <h2>{task.title}</h2>
       <ul>{generateBulletPoints()}</ul>
-      <h3>Links</h3>
+      {(renderLinks().length > 0) ? (<h3>Links</h3>) : (<p></p>)}
       <ul>{renderLinks()}</ul>
       <button onClick={() => deleteTask(taskIndex)}>Delete Task</button>
     </div>
