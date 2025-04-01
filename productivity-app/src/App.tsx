@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import { Task } from './types';
@@ -44,11 +45,31 @@ function App() {
   };
   // Render the main application component
   return (
-    <div className="App">
-      <h1>Task Tracker</h1>
-      <TaskForm newTask={newTask} setNewTask={setNewTask} addTask={addTask} />
-      <TaskList tasks={tasks} toggleBulletPointCompletion={toggleBulletPointCompletion} deleteTask={deleteTask} />
-    </div>
+    <Router>
+      <div className="App">
+        {/* Navbar */}
+        <nav>
+          <ul>
+            <li>
+              <Link to="/tasks">View Tasks</Link>
+            </li>
+            <li>
+              <Link to="/create">Create Task</Link>
+            </li>
+          </ul>
+        </nav>
+
+        {/* Routes */}
+        <Routes>
+          <Route
+            path="/tasks"
+            element={<TaskList tasks={tasks} toggleBulletPointCompletion={toggleBulletPointCompletion} deleteTask={deleteTask}/>}/>
+          <Route
+            path="/create"
+            element={<TaskForm newTask={newTask} setNewTask={setNewTask} addTask={addTask} /> }/>
+        </Routes>
+      </div>
+    </Router>
   );
 }
 
