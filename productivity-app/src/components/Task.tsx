@@ -13,9 +13,13 @@ const Task = ({ task, taskIndex, toggleBulletPointCompletion, deleteTask }: Task
   //Generate Task Bullet Points
   const generateBulletPoints = () => {
     return task.bulletPoints.filter((point) => point.text.trim() !== '').map((point, index) => (
-      <li key = {index}>
-        <input type = "checkbox" checked = {point.completed} onChange = {() => toggleBulletPointCompletion(taskIndex, index)} />
-        <span style = {{ textDecoration: point.completed ? 'line-through' : 'none' }}>{point.text}</span>
+      <li key={index}>
+        <label>
+          <input type="checkbox" checked={point.completed} onChange={() => toggleBulletPointCompletion(taskIndex, index)}/>
+          <span style={{ textDecoration: point.completed ? 'line-through' : 'none' }}>
+            {point.text}
+          </span>
+        </label>
       </li>
     ));
   }

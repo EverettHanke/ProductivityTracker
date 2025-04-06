@@ -44,7 +44,7 @@ function App() {
                 <nav>
                     <ul>
                         <li>
-                            <Link to="/tasks">View Tasks</Link>
+                            <Link to="/">View Tasks</Link>
                         </li>
                         <li>
                             <Link to="/create">Create Task</Link>
@@ -58,7 +58,7 @@ function App() {
                 {/* Routes */}
                 <Routes>
                     <Route
-                        path="/tasks"
+                        path="/"
                         element={
                             <TaskList
                                 tasks={tasks}
