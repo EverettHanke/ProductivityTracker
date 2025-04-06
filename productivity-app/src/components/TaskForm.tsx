@@ -25,6 +25,23 @@ const TaskForm = ({ newTask, setNewTask, addTask }: TaskFormProps) => {
     setNewTask({ ...newTask, links: updatedLinks });
   };
 
+  // Function that updates the tags in the newTask state
+  const updateTag = (index: number, value: string) => {
+    const updatedTags = newTask.tags.slice();
+    updatedTags[index] = value;
+    setNewTask({ ...newTask, tags: updatedTags });
+  };
+ // Function to add a new tag
+ const addTag = () => {
+  setNewTask({ ...newTask, tags: [...newTask.tags, ''] });
+};
+
+// Function to remove a tag
+const removeTag = (index: number) => {
+  const updatedTags = newTask.tags.filter((_, i) => i !== index);
+  setNewTask({ ...newTask, tags: updatedTags });
+};
+
   // Displays the Form
   return (
     <div className="task-form">
@@ -49,7 +66,30 @@ const TaskForm = ({ newTask, setNewTask, addTask }: TaskFormProps) => {
         />
       ))}
       <button onClick={() => setNewTask({ ...newTask, links: [...newTask.links, ''] })}> Add Link </button>
-      <button onClick={addTask}>Add Task</button>
+      <h3>Tags</h3>
+      {newTask.tags.map((tag, index) => (
+        <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
+          <input
+            type="text"
+            placeholder={`Tag ${index + 1}`}
+            value={tag}
+            onChange={(e) => updateTag(index, e.target.value)}
+          />
+        
+        </div>
+      ))}
+        <button
+            type= "button"
+            onClick={() => addTag()}
+            style={{ marginLeft: '0.5rem' }}
+          >Add Tag</button>
+          <button
+            type="button"
+            onClick={() => removeTag(0)}
+            style={{ marginLeft: '0.5rem' }}
+          >Remove</button>
+      <br></br>
+      <button onClick={addTask} style={{marginTop: '0.5rem'}}>Upload Task</button>
     </div>
   );
 };

@@ -16,22 +16,26 @@ function App() {
         title: '',
         bulletPoints: [{ text: '', completed: false }],
         links: [''],
+        tags: [''],
     });
 
     const [backgroundUrl, setBackgroundUrl] = useState<string>(() => {
         return localStorage.getItem('backgroundUrl') || ''; // Load from localStorage or use default
     });
 
-    // Apply the background URL to the body when the app loads or when it changes
+    // SAVES TASKS AND BACKGROUND URL TO LOCAL STORAGE
     useEffect(() => {
         document.body.style.backgroundImage = `url(${backgroundUrl})`;
         document.body.style.backgroundSize = 'cover';
         document.body.style.backgroundPosition = 'center';
         document.body.style.backgroundRepeat = 'no-repeat';
 
+        // Save tasks to localStorage
+        localStorage.setItem('tasks', JSON.stringify(tasks)); 
+
         // Save the background URL to localStorage
         localStorage.setItem('backgroundUrl', backgroundUrl);
-    }, [backgroundUrl]);
+    }, [backgroundUrl, tasks]);
 
     return (
         <Router>
@@ -76,7 +80,7 @@ function App() {
                         element={
                             <TaskForm newTask={newTask} setNewTask={setNewTask} addTask={() => {
                                 setTasks([...tasks, newTask]);
-                                setNewTask({ title: '', bulletPoints: [{ text: '', completed: false }], links: [''] });
+                                setNewTask({ title: '', bulletPoints: [{ text: '', completed: false }], links: [''], tags: [''] });
                             }} />
                         }
                     />

@@ -165,6 +165,7 @@ nav ul li a:hover {
   font-size: 1rem;
   background-color: var(--background-color); /* Dark input background */
   color: var(--text-color); /* Light text */
+  box-sizing: border-box;
 }
 
 .task-form input::placeholder {
@@ -247,6 +248,7 @@ nav ul li a:hover {
   font-size: 1rem;
   background-color: var(--background-color);
   color: var(--text-color);
+  box-sizing: border-box;
 }
 
 .settings button {

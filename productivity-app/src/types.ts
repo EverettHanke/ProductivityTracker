@@ -7,4 +7,5 @@ export interface BulletPoint {
     title: string;
     bulletPoints: BulletPoint[];
     links: string[];
+    tags: string[];
   }
