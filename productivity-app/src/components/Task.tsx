@@ -30,6 +30,12 @@ const Task = ({ task, taskIndex, toggleBulletPointCompletion, deleteTask }: Task
       </li>
     ));
   }
+
+   // Render Tags
+   const renderTags = () => {
+    return task.tags.filter((tag) => tag.trim() !== '')
+    .map((tag, i) => <span key={i} style={{ marginRight: '0.5rem' }}>{tag},</span>); 
+  };
   
   // Render the Task Component
   return (
@@ -38,6 +44,12 @@ const Task = ({ task, taskIndex, toggleBulletPointCompletion, deleteTask }: Task
       <ul>{generateBulletPoints()}</ul>
       {(renderLinks().length > 0) ? (<h3>Links</h3>) : (<p></p>)}
       <ul>{renderLinks()}</ul>
+      {renderTags().length > 0 && (
+        <>
+          <h3>Tags</h3>
+          <div>{renderTags()}</div>
+        </>
+      )}
       <button onClick={() => deleteTask(taskIndex)}>Delete Task</button>
     </div>
   );

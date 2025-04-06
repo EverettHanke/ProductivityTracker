@@ -16,7 +16,7 @@ function App() {
         title: '',
         bulletPoints: [{ text: '', completed: false }],
         links: [''],
-        tags: [''],
+        tags: [],
     });
 
     const [backgroundUrl, setBackgroundUrl] = useState<string>(() => {
