@@ -3,6 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
+import Settings from './components/Settings';
 import { Task } from './types';
 
 function App() {
@@ -43,6 +44,17 @@ function App() {
     const updatedTasks = tasks.filter((_, index) => index !== taskIndex);
     setTasks(updatedTasks);
   };
+
+   // State for the background URL
+   const [backgroundUrl, setBackgroundUrl] = useState<string>(() => {
+    return localStorage.getItem('backgroundUrl') || 'https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTZkMTJmdnByZ3h2YndrenhwY2Z0amdheXI0eWJvc3R3d21qcTR0byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lKaeQAunM3hZaqsOpj/giphy.gif';
+  });
+
+   // Save the background URL to localStorage whenever it changes
+   useEffect(() => {
+    localStorage.setItem('backgroundUrl', backgroundUrl);
+  }, [backgroundUrl]);
+  
   // Render the main application component
   return (
     <Router>
@@ -56,6 +68,9 @@ function App() {
             <li>
               <Link to="/create">Create Task</Link>
             </li>
+            <li>
+              <Link to="/settings">Settings</Link>
+            </li>
           </ul>
         </nav>
 
@@ -67,6 +82,9 @@ function App() {
           <Route
             path="/create"
             element={<TaskForm newTask={newTask} setNewTask={setNewTask} addTask={addTask} /> }/>
+          <Route
+            path="/Settings"
+            element={<Settings backgroundUrl={backgroundUrl} setBackgroundUrl={setBackgroundUrl} /> }/>
         </Routes>
       </div>
     </Router>
