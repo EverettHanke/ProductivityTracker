@@ -44,9 +44,10 @@
 body {
   margin: 0;
   font-family: 'Arial', sans-serif;
-  /*background-color: var(--background-color); /* Dark background */
-  /*background-image: url('https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTZkMTJmdnByZ3h2YndrenhwY2Z0amdheXI0eWJvc3R3d21qcTR0byZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/lKaeQAunM3hZaqsOpj/giphy.gif');
-  */background-size: cover;
+  
+  background-color: var(--background-color); /* Fallback dark background */
+
+  background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
   color: var(--text-color); /* Light text */
