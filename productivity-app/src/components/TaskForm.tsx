@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Task } from '../types';
 
 interface TaskFormProps {
@@ -7,9 +7,11 @@ interface TaskFormProps {
   addTask: () => void;
 }
 
+
+
 // This component is responsible for rendering the form to create a new task.
 const TaskForm = ({ newTask, setNewTask, addTask }: TaskFormProps) => {
-
+  const [error, setError] = useState('');
 
   // Function that updates the bullet point text in the newTask state
   const updateBulletPoint = (index: number, value: string) => {
@@ -31,6 +33,7 @@ const TaskForm = ({ newTask, setNewTask, addTask }: TaskFormProps) => {
     updatedTags[index] = value;
     setNewTask({ ...newTask, tags: updatedTags });
   };
+
  // Function to add a new tag
  const addTag = () => {
   setNewTask({ ...newTask, tags: [...newTask.tags, ''] });
@@ -42,16 +45,28 @@ const removeTag = (index: number) => {
   setNewTask({ ...newTask, tags: updatedTags });
 };
 
+//Validation for the task title
+const handleAddTask = () => {
+  if (newTask.title.trim() === ''){
+    setError('Please enter a task title.');
+    return;
+  }
+  setError('');
+  addTask();
+}
+
   // Displays the Form
   return (
     <div className="task-form">
       <input type="text" placeholder="Task Title" value={newTask.title}
         onChange={(e) => setNewTask({ ...newTask, title: e.target.value })} />
+        {error && <p style={{ color: 'red' }}>{error}</p>}
       <h3>Bullet Points</h3>
       {newTask.bulletPoints.map((point, index) => (
         <input key={index} type="text" placeholder={`Bullet Point ${index + 1}`} value={point.text}
           onChange={(e) => updateBulletPoint(index, e.target.value)} />
       ))}
+      
       <button onClick={() => setNewTask({ ...newTask, bulletPoints: [...newTask.bulletPoints, { text: '', completed: false }] })}>
         Add Bullet Point
       </button>
@@ -89,7 +104,8 @@ const removeTag = (index: number) => {
             style={{ marginLeft: '0.5rem' }}
           >Remove</button>
       <br></br>
-      <button onClick={addTask} style={{marginTop: '0.5rem'}}>Upload Task</button>
+      <button onClick={handleAddTask} style={{marginTop: '0.5rem'}}>Upload Task</button>
+
     </div>
   );
 };

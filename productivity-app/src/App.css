@@ -199,6 +199,10 @@ nav ul li a:hover {
   text-decoration: none;
   transition: color 0.3s ease;
 }
+.tags {
+  flex-wrap: wrap;
+  color: gray
+}
 
 .task ul li a:hover {
   color: var(--primary-color-dark); /* Slightly darker orange on hover */
@@ -264,4 +268,9 @@ nav ul li a:hover {
 
 .settings button:hover {
   background-color: var(--primary-color-dark);
+}
+
+select:focus {
+  outline: 2px solid var(--primary-color-dark); /* Add a visible focus outline */
+  outline-offset: 2px;
 }

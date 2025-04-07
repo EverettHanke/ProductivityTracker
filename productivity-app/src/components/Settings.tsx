@@ -62,11 +62,7 @@ const Settings = ({ backgroundUrl, setBackgroundUrl }: SettingsProps) => {
         <div className="settings">
             <h2>Settings</h2>
             <label htmlFor="backgroundOptions">Choose a Background:</label>
-            <select
-                id="backgroundOptions"
-                value={selectedOption}
-                onChange={handleOptionChange}
-            >
+            <select id="backgroundOptions" value={selectedOption} onChange={handleOptionChange} aria-label='Choose a background' aria-labelledby="backgroundOptionsLabel" >
                 {preBakedBackgrounds.map((bg, index) => (
                     <option key={index} value={bg.label === 'Custom URL' ? 'custom' : bg.label}>
                         {bg.label}
@@ -77,12 +73,9 @@ const Settings = ({ backgroundUrl, setBackgroundUrl }: SettingsProps) => {
             {selectedOption === 'custom' && (
                 <div>
                     <label htmlFor="customUrl">Enter Custom Background URL:</label>
-                    <input
-                        type="text"
-                        id="customUrl"
-                        value={customUrl}
-                        onChange={(e) => setCustomUrl(e.target.value)}
+                    <input type="text" id="customUrl" value={customUrl} onChange={(e) => setCustomUrl(e.target.value)}
                         placeholder="Enter a custom background URL"
+                        aria-label="Custom background URL"
                     />
                 </div>
             )}

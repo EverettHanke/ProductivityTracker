@@ -38,7 +38,7 @@ const Task = ({ task, taskIndex, toggleBulletPointCompletion, deleteTask }: Task
    // Render Tags
    const renderTags = () => {
     return task.tags.filter((tag) => tag.trim() !== '')
-    .map((tag, i) => <span key={i} style={{ marginRight: '0.5rem' }}>{tag},</span>); 
+    .map((tag, i) => <span className="tags" key={i} style={{ marginRight: '0.5rem' }}>{tag},</span>); 
   };
   
   // Render the Task Component
