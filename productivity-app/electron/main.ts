@@ -39,7 +39,7 @@ function createWindow() {
   })
 
   //comment out this line to stop dev tools from opening
-  win.webContents.openDevTools();
+  //win.webContents.openDevTools();
 
   // Test active push message to Renderer-process.
   win.webContents.on('did-finish-load', () => {
