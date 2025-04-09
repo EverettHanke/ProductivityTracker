@@ -11,7 +11,9 @@ interface TaskFormProps {
 
 // This component is responsible for rendering the form to create a new task.
 const TaskForm = ({ newTask, setNewTask, addTask }: TaskFormProps) => {
-  const [error, setError] = useState('');
+  const [error, setTitleError] = useState('');
+  const [bulletError, setBulletError] = useState('');
+  const [linkError, setLinkError] = useState('');
 
   // Function that updates the bullet point text in the newTask state
   const updateBulletPoint = (index: number, value: string) => {
@@ -45,15 +47,63 @@ const removeTag = (index: number) => {
   setNewTask({ ...newTask, tags: updatedTags });
 };
 
+// Validates all bullet points
+const validateBulletPoints = () => {
+  const allBulletPointsValid = newTask.bulletPoints.every(point => point.text.trim() !== '');
+  return allBulletPointsValid;
+}
+// Validates all links
+const validateLinks = () => {
+  const allLinksValid = newTask.links.every((link) => {
+    if (link.trim() === '') {
+      return false;
+    }
+    try {
+      new URL(link.trim()); 
+      return true;
+    } catch {
+      setLinkError('Please ensure links are valid')
+      return false; 
+    }
+  });
+
+  if (!allLinksValid) {
+    setLinkError('Please ensure all links are not empty.');
+  } else {
+    setLinkError('');
+  }
+
+  return allLinksValid;
+};
+
 //Validation for the task title
 const handleAddTask = () => {
-  if (newTask.title.trim() === ''){
-    setError('Please enter a task title.');
-    return;
+  let error = false;
+  if (newTask.title.trim() === '') {
+    setTitleError('Please enter a task title.');
+    error = true;
+  } else {
+    setTitleError('');
   }
-  setError('');
+  if(!validateBulletPoints()){
+      setBulletError('Please remove all unused bullet points');
+      error = true;
+  }
+  else{ 
+    setBulletError('');
+  }
+  if(!validateLinks()){
+      error = true;
+  } else{
+    setLinkError('');
+  } 
+  if(error) return;
   addTask();
 }
+
+
+
+
 
   // Displays the Form
   return (
@@ -63,13 +113,16 @@ const handleAddTask = () => {
         {error && <p style={{ color: 'red' }}>{error}</p>}
       <h3>Bullet Points</h3>
       {newTask.bulletPoints.map((point, index) => (
-        <div className="form-input-and-button">
-          <input key={index} type="text" placeholder={`Bullet Point ${index + 1}`} value={point.text} 
-            onChange={(e) => updateBulletPoint(index, e.target.value)} />
-            <button className="remove-button" type="button" aria-label='remove previous bullet point'
-              onClick={() => setNewTask({...newTask,bulletPoints: newTask.bulletPoints.filter((_, i) => i !== index),})}
-            > X
-            </button>
+        <div>
+          <div className="form-input-and-button">
+            <input key={index} type="text" placeholder={`Bullet Point ${index + 1}`} value={point.text} 
+              onChange={(e) => updateBulletPoint(index, e.target.value)} />
+              <button className="remove-button" type="button" aria-label='remove previous bullet point'
+                onClick={() => setNewTask({...newTask,bulletPoints: newTask.bulletPoints.filter((_, i) => i !== index),})}
+              > X
+              </button>
+          </div>
+          {bulletError && <p style={{ color: 'red' }}>{bulletError}</p>}
         </div>
       ))}
       
@@ -78,20 +131,24 @@ const handleAddTask = () => {
       </button>
       <h3>Links</h3>
       {newTask.links.map((link, index) => (
-        <div className="form-input-and-button">
-          <input
-            key={index}
-            type="text"
-            placeholder={`Link ${index + 1}`}
-            value={link}
-            onChange={(e) => updateLink(index, e.target.value)}
-          />
-          <button type="button" className="remove-button" aria-label='remove previous link'
-            onClick={() => setNewTask({...newTask, links: newTask.links.filter((_, i) => i !== index),})}>
-            X
-          </button>
+        <div>
+          <div className="form-input-and-button">
+            <input
+              key={index}
+              type="text"
+              placeholder={`Link ${index + 1}`}
+              value={link}
+              onChange={(e) => updateLink(index, e.target.value)}
+            />
+            <button type="button" className="remove-button" aria-label='remove previous link'
+              onClick={() => setNewTask({...newTask, links: newTask.links.filter((_, i) => i !== index),})}>
+              X
+            </button>
+          </div>
+          {linkError && <p style={{ color: 'red' }}>{linkError}</p>}
         </div>
       ))}
+      
       <button onClick={() => setNewTask({ ...newTask, links: [...newTask.links, ''] })}> Add Link </button>
       <h3>Tags</h3>
       {newTask.tags.map((tag, index) => (
