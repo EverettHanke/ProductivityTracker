@@ -143,8 +143,16 @@ nav ul li a:hover {
   margin-bottom: 0.5rem;
 }
 
+.task ul li a{
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
 .task ul li span {
   flex-grow: 1;
+  word-break: break-word;
+  word-wrap: break-word;
+  white-space: normal;
 }
 
 .task button {
@@ -222,7 +230,9 @@ nav ul li a:hover {
 }
 .tags {
   flex-wrap: wrap;
-  color: gray
+  color: gray;
+  word-break: break-word;
+  word-wrap: break-word;
 }
 
 .task ul li a:hover {
