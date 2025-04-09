@@ -47,6 +47,11 @@ const removeTag = (index: number) => {
   setNewTask({ ...newTask, tags: updatedTags });
 };
 
+// Function to toggle the isDaily property
+const toggleIsDaily = () => {
+  setNewTask({ ...newTask, isDaily: !newTask.isDaily });
+};
+
 // Validates all bullet points
 const validateBulletPoints = () => {
   const allBulletPointsValid = newTask.bulletPoints.every(point => point.text.trim() !== '');
@@ -168,11 +173,21 @@ const handleAddTask = () => {
         
         </div>
       ))}
-        <button
-            type= "button"
-            onClick={() => addTag()}
-            style={{ marginLeft: '0.5rem' }}
-          >Add Tag</button>
+      <button
+          type= "button"
+          onClick={() => addTag()}
+          style={{ marginLeft: '0.5rem' }}
+        >Add Tag</button>
+
+      <h3>Daily Task</h3>
+      <label>
+        <input
+          type="checkbox"
+          checked={newTask.isDaily}
+          onChange={toggleIsDaily}
+        />
+        Mark as Daily Task
+      </label>
           
       <br></br>
       <button onClick={handleAddTask} style={{marginTop: '0.5rem'}}>Upload Task</button>

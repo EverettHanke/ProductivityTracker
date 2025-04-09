@@ -17,6 +17,7 @@ function App() {
         bulletPoints: [{ text: '', completed: false }],
         links: [''],
         tags: [],
+        isDaily: false,
     });
 
     const [backgroundUrl, setBackgroundUrl] = useState<string>(() => {
@@ -47,6 +48,9 @@ function App() {
                             <Link to="/">View Tasks</Link>
                         </li>
                         <li>
+                            <Link to="daily">Daily Tasks</Link>
+                        </li>
+                        <li>
                             <Link to="/create">Create Task</Link>
                         </li>
                         <li>
@@ -72,6 +76,26 @@ function App() {
                                     const updatedTasks = tasks.filter((_, index) => index !== taskIndex);
                                     setTasks(updatedTasks);
                                 }}
+                                isDaily={false}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/daily"
+                        element={
+                            <TaskList
+                                tasks={tasks}
+                                toggleBulletPointCompletion={(taskIndex, bulletIndex) => {
+                                    const updatedTasks = [...tasks];
+                                    updatedTasks[taskIndex].bulletPoints[bulletIndex].completed =
+                                        !updatedTasks[taskIndex].bulletPoints[bulletIndex].completed;
+                                    setTasks(updatedTasks);
+                                }}
+                                deleteTask={(taskIndex) => {
+                                    const updatedTasks = tasks.filter((_, index) => index !== taskIndex);
+                                    setTasks(updatedTasks);
+                                }}
+                                isDaily={true} 
                             />
                         }
                     />
@@ -80,7 +104,7 @@ function App() {
                         element={
                             <TaskForm newTask={newTask} setNewTask={setNewTask} addTask={() => {
                                 setTasks([...tasks, newTask]);
-                                setNewTask({ title: '', bulletPoints: [{ text: '', completed: false }], links: [''], tags: [''] });
+                                setNewTask({ title: '', bulletPoints: [{ text: '', completed: false }], links: [''], tags: [''], isDaily: false });
                             }} />
                         }
                     />

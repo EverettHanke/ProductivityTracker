@@ -6,42 +6,53 @@ interface TaskListProps {
   tasks: TaskType[];
   toggleBulletPointCompletion: (taskIndex: number, bulletIndex: number) => void;
   deleteTask: (taskIndex: number) => void;
+  isDaily: boolean;
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, toggleBulletPointCompletion, deleteTask }) => {
-
+const TaskList: React.FC<TaskListProps> = ({ tasks, toggleBulletPointCompletion, deleteTask, isDaily }) => {
   const [filterValue, setFilterValue] = useState('');
 
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setFilterValue(event.target.value.toLowerCase());
-  }
+  };
 
   const handleClearFilter = () => {
     setFilterValue('');
-  }
+  };
 
-  const filteredTasks = (filterValue === '') ? tasks : tasks.filter((task) => 
-      task.tags.some((tag) => tag.toLowerCase().includes(filterValue)) || 
-      task.title.toLowerCase().includes(filterValue)
-  )
+  const filteredTasks = tasks
+    .map((task, index) => ({ task, originalIndex: index })) // Include the original index
+    .filter(({ task }) => {
+      const matchesFilter =
+        filterValue === '' ||
+        task.tags.some((tag) => tag.toLowerCase().includes(filterValue)) ||
+        task.title.toLowerCase().includes(filterValue);
+
+      return matchesFilter && task.isDaily === isDaily; // Ensure it matches the isDaily filter
+    });
+
   return (
     <div>
-      <input type="text" className="filter-input" placeholder="Filter tasks..." value={filterValue} onChange={handleFilterChange}/>
-      {/*<button className="filter-button" onClick={() => setFilterValue(filterValue)}>Filter</button>*/}
+      <input
+        type="text"
+        className="filter-input"
+        placeholder="Filter tasks..."
+        value={filterValue}
+        onChange={handleFilterChange}
+      />
       <button className="clear-button" onClick={handleClearFilter}>Clear</button>
       <div className="task-list">
-        {filteredTasks.map((task, taskIndex) => (
+        {filteredTasks.map(({ task, originalIndex }) => (
           <Task
-            key={taskIndex}
+            key={originalIndex}
             task={task}
-            taskIndex={taskIndex}
+            taskIndex={originalIndex} // Pass the original index
             toggleBulletPointCompletion={toggleBulletPointCompletion}
             deleteTask={deleteTask}
           />
         ))}
       </div>
     </div>
-    
   );
 };
 

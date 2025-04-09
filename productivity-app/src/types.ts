@@ -8,4 +8,5 @@ export interface BulletPoint {
     bulletPoints: BulletPoint[];
     links: string[];
     tags: string[];
+    isDaily: boolean;
   }
