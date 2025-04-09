@@ -63,8 +63,14 @@ const handleAddTask = () => {
         {error && <p style={{ color: 'red' }}>{error}</p>}
       <h3>Bullet Points</h3>
       {newTask.bulletPoints.map((point, index) => (
-        <input key={index} type="text" placeholder={`Bullet Point ${index + 1}`} value={point.text}
-          onChange={(e) => updateBulletPoint(index, e.target.value)} />
+        <div className="form-input-and-button">
+          <input key={index} type="text" placeholder={`Bullet Point ${index + 1}`} value={point.text} 
+            onChange={(e) => updateBulletPoint(index, e.target.value)} />
+            <button className="remove-button" type="button" aria-label='remove previous bullet point'
+              onClick={() => setNewTask({...newTask,bulletPoints: newTask.bulletPoints.filter((_, i) => i !== index),})}
+            > X
+            </button>
+        </div>
       ))}
       
       <button onClick={() => setNewTask({ ...newTask, bulletPoints: [...newTask.bulletPoints, { text: '', completed: false }] })}>
@@ -72,24 +78,36 @@ const handleAddTask = () => {
       </button>
       <h3>Links</h3>
       {newTask.links.map((link, index) => (
-        <input
-          key={index}
-          type="text"
-          placeholder={`Link ${index + 1}`}
-          value={link}
-          onChange={(e) => updateLink(index, e.target.value)}
-        />
+        <div className="form-input-and-button">
+          <input
+            key={index}
+            type="text"
+            placeholder={`Link ${index + 1}`}
+            value={link}
+            onChange={(e) => updateLink(index, e.target.value)}
+          />
+          <button type="button" className="remove-button" aria-label='remove previous link'
+            onClick={() => setNewTask({...newTask, links: newTask.links.filter((_, i) => i !== index),})}>
+            X
+          </button>
+        </div>
       ))}
       <button onClick={() => setNewTask({ ...newTask, links: [...newTask.links, ''] })}> Add Link </button>
       <h3>Tags</h3>
       {newTask.tags.map((tag, index) => (
-        <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '0.5rem' }}>
+        <div key={index} className="form-input-and-button">
           <input
             type="text"
             placeholder={`Tag ${index + 1}`}
             value={tag}
             onChange={(e) => updateTag(index, e.target.value)}
           />
+          <button
+            type="button"
+            onClick={() => removeTag(index)}
+            className="remove-button"
+            aria-label='remove previous tag'
+          >X</button>
         
         </div>
       ))}
@@ -98,11 +116,7 @@ const handleAddTask = () => {
             onClick={() => addTag()}
             style={{ marginLeft: '0.5rem' }}
           >Add Tag</button>
-          <button
-            type="button"
-            onClick={() => removeTag(0)}
-            style={{ marginLeft: '0.5rem' }}
-          >Remove</button>
+          
       <br></br>
       <button onClick={handleAddTask} style={{marginTop: '0.5rem'}}>Upload Task</button>
 
