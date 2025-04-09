@@ -8,7 +8,7 @@ interface SettingsProps {
 const Settings = ({ backgroundUrl, setBackgroundUrl }: SettingsProps) => {
     const [newUrl, setNewUrl] = useState(backgroundUrl);
     const [customUrl, setCustomUrl] = useState('');
-    const [selectedOption, setSelectedOption] = useState('default');
+    const [selectedOption, setSelectedOption] = useState('Default Background');
 
     // Pre-baked background options
     const preBakedBackgrounds = [
@@ -42,6 +42,8 @@ const Settings = ({ backgroundUrl, setBackgroundUrl }: SettingsProps) => {
         document.body.style.backgroundSize = 'cover';
         document.body.style.backgroundPosition = 'center';
         document.body.style.backgroundRepeat = 'no-repeat';
+        document.body.style.transition = 'background-image 0.5s ease-in-out';
+        document.body.style.backgroundAttachment = 'fixed';
     };
 
     const handleOptionChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

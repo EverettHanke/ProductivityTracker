@@ -70,8 +70,14 @@ nav {
   align-items: center;
   margin-bottom: 2rem;
   padding: 1rem;
-  background-color: var(--background-color); /* Darker navbar background */
-  border-radius: 8px;
+  background-color: var(--background-color);
+  border-radius: 0; 
+  width: 100%; 
+  position: fixed; 
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Ensure it stays on top */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
 }
 
 nav ul {
@@ -103,12 +109,17 @@ nav ul li a:hover {
 /* Task List */
 .task-list {
   margin-top: 2rem;
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .task {
   background-color: var(--background-color); /* Dark card background */
   border: 1px solid var(--border-color); /* Subtle border */
   border-radius: 8px;
+  width: 60%;
   padding: 1rem;
   margin-bottom: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
