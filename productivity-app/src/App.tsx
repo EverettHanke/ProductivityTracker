@@ -66,6 +66,7 @@ function App() {
                         element={
                             <TaskList
                                 tasks={tasks}
+                                setTasks={setTasks}
                                 toggleBulletPointCompletion={(taskIndex, bulletIndex) => {
                                     const updatedTasks = [...tasks];
                                     updatedTasks[taskIndex].bulletPoints[bulletIndex].completed =
@@ -85,6 +86,7 @@ function App() {
                         element={
                             <TaskList
                                 tasks={tasks}
+                                setTasks={setTasks}
                                 toggleBulletPointCompletion={(taskIndex, bulletIndex) => {
                                     const updatedTasks = [...tasks];
                                     updatedTasks[taskIndex].bulletPoints[bulletIndex].completed =

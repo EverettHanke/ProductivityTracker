@@ -4,12 +4,13 @@ import { Task as TaskType } from '../types';
 
 interface TaskListProps {
   tasks: TaskType[];
+  setTasks: React.Dispatch<React.SetStateAction<TaskType[]>>;
   toggleBulletPointCompletion: (taskIndex: number, bulletIndex: number) => void;
   deleteTask: (taskIndex: number) => void;
   isDaily: boolean;
 }
 
-const TaskList: React.FC<TaskListProps> = ({ tasks, toggleBulletPointCompletion, deleteTask, isDaily }) => {
+const TaskList: React.FC<TaskListProps> = ({ tasks, setTasks, toggleBulletPointCompletion, deleteTask, isDaily }) => {
   const [filterValue, setFilterValue] = useState('');
 
   const handleFilterChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,6 +32,12 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, toggleBulletPointCompletion,
       return matchesFilter && task.isDaily === isDaily; // Ensure it matches the isDaily filter
     });
 
+    const updateTask = (taskIndex: number, updatedTask: TaskType) => {
+      const updatedTasks = [...tasks];
+      updatedTasks[taskIndex] = updatedTask;
+      setTasks(updatedTasks);
+    };
+
   return (
     <div>
       <input
@@ -49,6 +56,7 @@ const TaskList: React.FC<TaskListProps> = ({ tasks, toggleBulletPointCompletion,
             taskIndex={originalIndex} // Pass the original index
             toggleBulletPointCompletion={toggleBulletPointCompletion}
             deleteTask={deleteTask}
+            updateTask={updateTask} // Pass the updateTask function
           />
         ))}
       </div>
