@@ -38,6 +38,9 @@ function createWindow() {
     fullscreen: false
   })
 
+  //Hide the menu bar
+  win.setMenuBarVisibility(false);
+
   //comment out this line to stop dev tools from opening
   //win.webContents.openDevTools();
 

@@ -33,8 +33,9 @@
   },
   "main": "dist-electron/main.js",
   "build": {
-    "appId": "com.yourcompany.productivityapp",
-    "productName": "ProductTestApp",
+    "appId": "com.EverettHanke.Momentum",
+    "productName": "Momentum",
+    "publisher": "Everett Hanke",
     "directories": {
       "output": "dist"
     },
