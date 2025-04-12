@@ -35,7 +35,6 @@
   "build": {
     "appId": "com.EverettHanke.Momentum",
     "productName": "Momentum",
-    "publisher": "Everett Hanke",
     "directories": {
       "output": "dist"
     },
@@ -51,7 +50,8 @@
     ],
     "win": {
       "target": "nsis",
-      "icon": "public/icon.ico"
+      "icon": "public/icon.ico",
+      "publisherName": "Everett Hanke"
     },
     "nsis": {
       "oneClick": false,
