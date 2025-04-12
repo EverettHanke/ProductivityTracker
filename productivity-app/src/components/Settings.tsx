@@ -13,11 +13,11 @@ const Settings = ({ backgroundUrl, setBackgroundUrl }: SettingsProps) => {
     // Pre-baked background options
     const preBakedBackgrounds = [
         { label: 'Default Background', url: '' },
-        { label: 'Abstract Waves', url: '/assets/ChillPinkWaves.gif' },
-        { label: 'Blue Stars', url: '/assets/BlueStars.gif' },
-        { label: 'Cherry Blossums', url: '/assets/CherryBlossums.gif' },
-        { label: 'City Skyline', url: '/assets/Skylines.gif' },
-        { label: 'Tower in the woods', url: '/assets/Tower.gif' },
+        { label: 'Abstract Waves', url: './assets/ChillPinkWaves.gif' },
+        { label: 'Blue Stars', url: './assets/BlueStars.gif' },
+        { label: 'Cherry Blossums', url: './assets/CherryBlossums.gif' },
+        { label: 'City Skyline', url: './assets/Skylines.gif' },
+        { label: 'Tower in the woods', url: './assets/Tower.gif' },
         { label: 'Custom URL', url: '' }, // Placeholder for custom URL
     ];
 
