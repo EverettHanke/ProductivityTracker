@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "react": "^18.2.0",
+    "react-countdown-circle-timer": "^3.2.1",
     "react-dom": "^18.2.0",
     "react-router-dom": "^7.4.1",
     "vite-tsconfig-paths": "^5.1.4"
@@ -43,10 +44,10 @@
       "dist/**/*",
       "public/**/*",
       "electron/**/*",
-      "src/**/*", 
+      "src/**/*",
       "index.html",
       "package.json",
-      "node_modules/**/*" 
+      "node_modules/**/*"
     ],
     "win": {
       "target": "nsis",

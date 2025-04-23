@@ -1,36 +1,51 @@
-import { app as n, BrowserWindow as s } from "electron";
-import { createRequire as c } from "node:module";
-import { fileURLToPath as a } from "node:url";
-import o from "node:path";
-const p = c(import.meta.url), r = o.dirname(a(import.meta.url));
-console.log(p);
-process.env.APP_ROOT = o.join(r, "..");
-const i = process.env.VITE_DEV_SERVER_URL, f = o.join(process.env.APP_ROOT, "dist-electron"), t = o.join(process.env.APP_ROOT, "dist");
-process.env.VITE_PUBLIC = i ? o.join(process.env.APP_ROOT, "public") : t;
-let e;
-function l() {
-  e = new s({
-    icon: o.join(process.env.APP_ROOT, "public/icon.ico"),
+import { app, BrowserWindow } from "electron";
+import { createRequire } from "node:module";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
+const require2 = createRequire(import.meta.url);
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+console.log(require2);
+process.env.APP_ROOT = path.join(__dirname, "..");
+const VITE_DEV_SERVER_URL = process.env["VITE_DEV_SERVER_URL"];
+const MAIN_DIST = path.join(process.env.APP_ROOT, "dist-electron");
+const RENDERER_DIST = path.join(process.env.APP_ROOT, "dist");
+process.env.VITE_PUBLIC = VITE_DEV_SERVER_URL ? path.join(process.env.APP_ROOT, "public") : RENDERER_DIST;
+let win;
+function createWindow() {
+  win = new BrowserWindow({
+    icon: path.join(process.env.APP_ROOT, "public/icon.ico"),
     // icon for the app
     webPreferences: {
-      preload: o.join(r, "preload.mjs"),
-      devTools: !0
+      preload: path.join(__dirname, "preload.mjs"),
+      devTools: true
       //set to false before build
     },
-    fullscreen: !1
-  }), e.setMenuBarVisibility(!1), e.webContents.on("did-finish-load", () => {
-    e == null || e.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
-  }), i ? e.loadURL(i) : e.loadFile(o.join(t, "index.html"));
+    fullscreen: false
+  });
+  win.setMenuBarVisibility(false);
+  win.webContents.on("did-finish-load", () => {
+    win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  });
+  if (VITE_DEV_SERVER_URL) {
+    win.loadURL(VITE_DEV_SERVER_URL);
+  } else {
+    win.loadFile(path.join(RENDERER_DIST, "index.html"));
+  }
 }
-n.on("window-all-closed", () => {
-  process.platform !== "darwin" && (n.quit(), e = null);
+app.on("window-all-closed", () => {
+  if (process.platform !== "darwin") {
+    app.quit();
+    win = null;
+  }
 });
-n.on("activate", () => {
-  s.getAllWindows().length === 0 && l();
+app.on("activate", () => {
+  if (BrowserWindow.getAllWindows().length === 0) {
+    createWindow();
+  }
 });
-n.whenReady().then(l);
+app.whenReady().then(createWindow);
 export {
-  f as MAIN_DIST,
-  t as RENDERER_DIST,
-  i as VITE_DEV_SERVER_URL
+  MAIN_DIST,
+  RENDERER_DIST,
+  VITE_DEV_SERVER_URL
 };

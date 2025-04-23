@@ -5,6 +5,7 @@ import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
 import Settings from './components/Settings';
 import { Task } from './types';
+import Timer from './components/Timer';
 
 function App() {
     const [tasks, setTasks] = useState<Task[]>(() => {
@@ -52,6 +53,9 @@ function App() {
                         </li>
                         <li>
                             <Link to="/create">Create Task</Link>
+                        </li>
+                        <li>
+                            <Link to="/timer">Pomodoro Timer</Link>
                         </li>
                         <li>
                             <Link to="/settings">Settings</Link>
@@ -109,6 +113,10 @@ function App() {
                                 setNewTask({ title: '', bulletPoints: [{ text: '', completed: false }], links: [''], tags: [''], isDaily: false });
                             }} />
                         }
+                    />
+                    <Route
+                        path="/timer"
+                        element={<Timer></Timer>}
                     />
                     <Route
                         path="/settings"
