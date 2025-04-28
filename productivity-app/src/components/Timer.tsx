@@ -1,5 +1,9 @@
 import { useState } from 'react';
 import { CountdownCircleTimer } from 'react-countdown-circle-timer';
+import { IconButton } from '@mui/material';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
+import StopIcon from '@mui/icons-material/Stop';
 
 const Timer = () => {
   const [minutes, setMinutes] = useState(0); // Minutes input
@@ -41,9 +45,15 @@ const Timer = () => {
           />
         </label>
         <div style={{ marginTop: '0.5rem' }}>
-          <button onClick={handleStart}>Start</button>
-          <button onClick={handlePause}>Pause</button>
-          <button onClick={handleStop}>Stop</button>
+          <IconButton onClick={handleStart} color="primary" aria-label="Start">
+            <PlayArrowIcon />
+          </IconButton>
+          <IconButton onClick={handlePause} color="secondary" aria-label="Pause">
+            <PauseIcon />
+          </IconButton>
+          <IconButton onClick={handleStop} color="error" aria-label="Stop">
+            <StopIcon />
+          </IconButton>
         </div>
       </div>
 
