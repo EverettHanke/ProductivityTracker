@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build && electron-builder",
+    "build:mac": "tsc && vite build && electron-builder --mac",
+    "build:win": "tsc && vite build && electron-builder --win",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
   },
@@ -55,12 +57,32 @@
     ],
     "win": {
       "target": "nsis",
-      "icon": "public/icon.ico",
-      "publisherName": "Everett Hanke"
+      "icon": "public/logo.ico",
+      "publisherName": "Everett Hanke & Monica Hanke"
     },
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
+    },
+    "mac": {
+      "target": ["dmg"],
+      "icon": "public/logo.ico",
+      "category": "public.app-category.productivity",
+      "darkModeSupport": true
+    },
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
     }
   }
 }

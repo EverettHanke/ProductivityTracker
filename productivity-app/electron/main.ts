@@ -19,7 +19,7 @@ console.log(require)
 // │
 process.env.APP_ROOT = path.join(__dirname, '..')
 
-// 🚧 Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
+// Use ['ENV_NAME'] avoid vite:define plugin - Vite@2.x
 export const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL']
 export const MAIN_DIST = path.join(process.env.APP_ROOT, 'dist-electron')
 export const RENDERER_DIST = path.join(process.env.APP_ROOT, 'dist')
@@ -30,7 +30,7 @@ let win: BrowserWindow | null
 
 function createWindow() {
   win = new BrowserWindow({
-    icon: path.join(process.env.APP_ROOT, 'public/icon.ico'), // icon for the app
+    icon: path.join(process.env.APP_ROOT, 'public/logo.ico'), // icon for the app
     webPreferences: {
       preload: path.join(__dirname, 'preload.mjs'),
       devTools: true, //set to false before build
